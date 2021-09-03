@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface Person {
+    name: string,
+    age: number,
+    sex: 'male' | 'female'
+}
+
+const App = () => {
+    const [count, setCount] = useState(0)
+    const onClickPlus = (step: number = 1) => {
+        setCount(count + step)
+    }
+
+    const [myObj, setMyObj] = useState({ name: 'zy', age: 25, sex: 'male' })
+    const updatePerson = (updateData: Person) => {
+        setMyObj({ ...myObj, ...updateData })
+    }
+    const updateName = (name: string) => {
+        setMyObj({ ...myObj, name })
+    }
+
+    return (
+        <div className="App">
+            <div>counter{count}</div>
+            <button onClick={() => { onClickPlus() }}>+1</button>
+            <div>对象测试</div>
+            <div>
+                <span>姓名{myObj.name}</span>
+                <span>年龄{myObj.age}</span>
+                <span>性别{myObj.sex}</span>
+            </div>
+            <button onClick={() => { updatePerson({ name: 'asd', age: 16, sex: 'female' }) }}>更新整个对象</button>
+            <button onClick={() => { updateName('xzc') }}>更新姓名</button>
+        </div>
+    );
 }
 
 export default App;
